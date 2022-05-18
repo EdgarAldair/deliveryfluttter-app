@@ -1,7 +1,10 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, duplicate_ignore
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_delivery/src/login/login_controller.dart';
 import 'package:flutter_delivery/src/utils/my_colors.dart';
+import 'package:lottie/lottie.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -11,6 +14,20 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  // ignore: prefer_final_fields, unnecessary_new
+  LoginController _con = new LoginController();
+
+  @override
+  void initState() {
+    // ignore: todo
+    // TODO: implement initState
+    super.initState();
+
+    SchedulerBinding.instance!.addPostFrameCallback((timeStamp) {
+      _con.init(context);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +40,8 @@ class _LoginPageState extends State<LoginPage> {
             Column(
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                _imageBanner(),
+                _lottieAnimation(),
+                //_imageBanner(),
                 _textfieldEmail(),
                 _textfieldPassword(),
                 _botonRegistrar(),
@@ -40,12 +58,15 @@ class _LoginPageState extends State<LoginPage> {
     return Text(
       'LOGIN',
       style: TextStyle(
-          color: Colors.white, fontSize: 22, fontWeight: FontWeight.bold),
+          fontFamily: 'NimbusSans',
+          color: Colors.white,
+          fontSize: 22,
+          fontWeight: FontWeight.bold),
     );
   }
 
   Widget _textRegistrar() {
-    return Column(
+    return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text(
@@ -55,10 +76,13 @@ class _LoginPageState extends State<LoginPage> {
         SizedBox(
           width: 7,
         ),
-        Text(
-          'Regístrate',
-          style: TextStyle(
-              fontWeight: FontWeight.bold, color: MyColors.primaryColor),
+        GestureDetector(
+          onTap: _con.goToRegisterPage,
+          child: Text(
+            'Regístrate',
+            style: TextStyle(
+                fontWeight: FontWeight.bold, color: MyColors.primaryColor),
+          ),
         )
       ],
     );
@@ -79,6 +103,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   Widget _textfieldPassword() {
+    // ignore: duplicate_ignore
     return Container(
       decoration: BoxDecoration(
           color: MyColors.primaryOpacityColor,
@@ -96,6 +121,15 @@ class _LoginPageState extends State<LoginPage> {
               color: MyColors.primaryColor,
             )),
       ),
+    );
+  }
+
+  Widget _lottieAnimation() {
+    return Container(
+      margin: EdgeInsets.only(
+          top: 160, bottom: MediaQuery.of(context).size.height * 0.13),
+      child: Lottie.asset('assets/json/loginanimation.json',
+          width: 350, height: 200, fit: BoxFit.fill),
     );
   }
 
@@ -120,6 +154,7 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
+  // ignore: unused_element
   Widget _imageBanner() {
     return Container(
       margin: EdgeInsets.only(

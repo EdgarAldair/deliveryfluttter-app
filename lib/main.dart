@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_delivery/src/login/login_page.dart';
+import 'package:flutter_delivery/src/register/register_page.dart';
 import 'package:flutter_delivery/src/utils/my_colors.dart';
 
 void main() {
@@ -19,11 +20,15 @@ class _MyAppState extends State<MyApp> {
     return MaterialApp(
       theme: ThemeData(
           colorScheme:
+              // ignore: prefer_const_constructors
               ColorScheme.light().copyWith(primary: MyColors.primaryColor)),
       title: 'Delivery App Flutter',
       debugShowCheckedModeBanner: false,
       initialRoute: 'login',
-      routes: {'login': (BuildContext context) => const LoginPage()},
+      routes: {
+        'login': (BuildContext context) => const LoginPage(),
+        'register': (BuildContext context) => RegisterPage()
+      },
     );
   }
 }
