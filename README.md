@@ -1,8 +1,6 @@
 # flutter_delivery
 
-A new Flutter project.
-
-## Getting Started
+An delivery app, created in Flutter, with NodeJS, SQL, and payments 
 
 This project is a starting point for a Flutter application.
 
