@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_delivery/src/login/login_controller.dart';
 import 'package:flutter_delivery/src/utils/my_colors.dart';
 import 'package:lottie/lottie.dart';
@@ -36,17 +37,27 @@ class _LoginPageState extends State<LoginPage> {
         child: Stack(
           children: [
             Positioned(top: -80, left: -100, child: _circleLogin()),
+            _lottieAnimation(),
             Positioned(top: 60, left: 25, child: _textLogin()),
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                _lottieAnimation(),
-                //_imageBanner(),
-                _textfieldEmail(),
-                _textfieldPassword(),
-                _botonRegistrar(),
-                _textRegistrar(),
-              ],
+            Container(
+              margin: EdgeInsets.only(top: 360),
+              child: SingleChildScrollView(
+                child: Container(
+                  margin: EdgeInsets.only(top: 80),
+                  width: double.infinity,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      //_imageBanner(),
+
+                      _textfieldEmail(),
+                      _textfieldPassword(),
+                      _botonLogin(),
+                      _textRegistrar(),
+                    ],
+                  ),
+                ),
+              ),
             ),
           ],
         ),
@@ -88,12 +99,12 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _botonRegistrar() {
+  Widget _botonLogin() {
     return Container(
       width: double.infinity,
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 30),
       child: ElevatedButton(
-          onPressed: () {},
+          onPressed: _con.login,
           style: ElevatedButton.styleFrom(
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(30)),
@@ -111,6 +122,8 @@ class _LoginPageState extends State<LoginPage> {
       // ignore: prefer_const_constructors
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
       child: TextField(
+        obscureText: true,
+        controller: _con.passwordController,
         decoration: InputDecoration(
             hintText: 'Contraseña',
             border: InputBorder.none,
@@ -141,6 +154,8 @@ class _LoginPageState extends State<LoginPage> {
       // ignore: prefer_const_constructors
       margin: EdgeInsets.symmetric(horizontal: 50, vertical: 5),
       child: TextField(
+        controller: _con.emailController,
+        keyboardType: TextInputType.emailAddress,
         decoration: InputDecoration(
             hintText: 'Correo electrónico',
             border: InputBorder.none,
