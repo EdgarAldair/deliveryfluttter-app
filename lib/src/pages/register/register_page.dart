@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
-import 'package:flutter_delivery/src/register/register_controller.dart';
+import 'package:flutter_delivery/src/pages/register/register_controller.dart';
 import 'package:flutter_delivery/src/utils/my_colors.dart';
 
 class RegisterPage extends StatefulWidget {
